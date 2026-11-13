@@ -6329,7 +6329,7 @@ function getMatches(f){return catalog.filter(i=>Object.entries(f).every(([k,v])=
 function getAvailableOptions(key,cur){const t={...cur};delete t[key];const s=new Set();getMatches(t).forEach(m=>{if(m[key]!=null&&String(m[key]).trim()!=="")s.add(String(m[key]).trim())});return[...s].sort()}
 const PLATFORM_GROUPS=[
  {name:"3E",note:"Compact, orchard",order:["3028EN","3036EN","3036E"]},
- {name:"5D",note:"Utility, puddling",order:["5036D","5039D","5042D","5045D","5050D","5105D"]},
+ {name:"5D",note:"Utility, puddling",order:["5036D","5105D","5039D","5042D","5045D","5050D"]},
  {name:"5E",note:"Heavy duty, commercial",order:["5210E","5310E","5405E","5075E"]}];
 function chip(label,on,cls,fn){const b=document.createElement("button");b.type="button";b.className="chip "+(cls||"");b.setAttribute("aria-pressed",on);b.textContent=label;b.onclick=fn;return b}
 function clearFrom(i){for(let j=i;j<FLOW_STEPS.length;j++){selections[FLOW_STEPS[j].key]="";autoSelectedMap[FLOW_STEPS[j].key]=false}}
