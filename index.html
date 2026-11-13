@@ -1,177 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>John Deere Tractor Model Selector - Telangana</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Phosphor Icons for high-end UI accents -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 9999px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tractor Variant Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#2f6b27;--green-d:#1f4a1a;--yellow:#ffde00;--paper:#f2f3ec;--card:#fff;--ink:#1a251a;--mute:#5d6a5d;--line:#d9dcd0;--rust:#a8321f;--bg:var(--paper)}
+@media(prefers-color-scheme:dark){:root{--paper:#121a12;--card:#1b261b;--ink:#eef2e8;--mute:#9fae9f;--line:#2f3f2f;--green:#5fae52;--green-d:#0d1a0d;--rust:#e8745f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:500 15px/1.4 Barlow,system-ui,sans-serif}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+header{background:var(--green-d);color:#fff;border-bottom:5px solid var(--yellow)}
+.bar{max-width:1120px;margin:0 auto;padding:12px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+h1{font:700 24px/1 'Barlow Condensed',sans-serif;margin:0;letter-spacing:.01em;margin-right:auto}
+h1 small{display:block;font:400 13px Barlow;opacity:.75;margin-top:4px;letter-spacing:0}
+.find{display:flex;background:rgba(255,255,255,.12);border-radius:8px;overflow:hidden}
+.find input{background:none;border:0;padding:9px 12px;width:210px;color:#fff;text-transform:uppercase}
+.find input::placeholder{color:#fff9;text-transform:none}
+.find button{border:0;background:var(--yellow);color:#1a251a;padding:0 14px;font-weight:600;cursor:pointer}
+.ghost{background:none;border:1px solid #fff6;color:#fff;border-radius:8px;padding:8px 14px;cursor:pointer}
+main{max-width:1120px;margin:0 auto;padding:20px 16px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start}
+h2{font:700 13px 'Barlow Condensed';letter-spacing:.06em;color:var(--mute);margin:0 0 8px;text-transform:uppercase}
+.series{display:flex;gap:10px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
+.series:first-of-type{border-top:0}
+.series b{width:112px;flex:none;font-weight:600;font-size:14px;line-height:1.2}
+.series b span{display:block;font-weight:400;color:var(--mute);font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;padding:0 16px;border:2px solid var(--line);background:var(--card);border-radius:8px;cursor:pointer;font-weight:600}
+.chip:hover{border-color:var(--green)}
+.chip[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff}
+.chip.model{font:700 20px 'Barlow Condensed';padding:0 18px}
+.done{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.done span{width:130px;color:var(--mute);flex:none}
+.done b{flex:1}
+.done button{background:none;border:0;color:var(--green);font-weight:600;cursor:pointer;text-decoration:underline;min-height:36px}
+.now{margin-top:16px;padding:16px;background:var(--card);border-left:6px solid var(--yellow);border-radius:0 10px 10px 0}
+.now h3{margin:0 0 10px;font:700 22px 'Barlow Condensed'}
+.now h3 small{font:400 14px Barlow;color:var(--mute);margin-left:8px}
+aside{position:sticky;top:12px;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.codebar{padding:18px 20px;background:var(--green-d);color:#fff}
+.codebar .st{font-size:13px;opacity:.8}
+.code{font:700 44px/1.05 'Barlow Condensed';letter-spacing:.04em;color:var(--yellow);margin:4px 0;font-variant-numeric:tabular-nums;user-select:all}
+.codebar .sub{font-size:13px;opacity:.85}
+[data-state=progress] .code{font-size:30px;color:#fff}
+[data-state=idle] .code{color:#fff6}
+[data-state=none] .codebar{background:var(--rust)}
+[data-state=none] .code{color:#fff}
+.specs{padding:6px 20px 4px}
+.row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.row span{color:var(--mute)}
+.row b{text-align:right}
+.row i{font:600 11px Barlow;background:var(--paper);padding:1px 6px;border-radius:4px;margin-left:6px;color:var(--mute);font-style:normal}
+.empty{color:var(--mute);padding:16px 0}
+.act{display:flex;gap:8px;padding:14px 20px 18px}
+.act button{flex:1;min-height:44px;border-radius:8px;border:2px solid var(--green);background:var(--green);color:#fff;font-weight:600;cursor:pointer}
+.act button+button{background:none;color:var(--green);flex:none;padding:0 18px}
+#toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:8px;opacity:0;transition:.2s;pointer-events:none;z-index:50}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){
+main{grid-template-columns:1fr;padding-bottom:110px}
+aside{position:static}
+.codebar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px;border-top:4px solid var(--yellow)}
+.code{font-size:32px}[data-state=progress] .code{font-size:24px}
+.series{flex-direction:column;gap:6px}.series b{width:auto}
+.find{width:100%}.find input{flex:1;width:auto}
+.done span{width:100px}
+}
+@media print{header,#left,.act,.find{display:none}main{display:block}aside{border:0}.codebar{position:static;background:none;color:#000;border:0;padding:0}.code{color:#000}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+#cmp{max-width:1120px;margin:20px auto 0;padding:0 16px}
+#cmp[hidden]{display:none}
+.cmpbox{background:var(--card);border:1px solid var(--line);border-top:6px solid var(--yellow);border-radius:12px;padding:16px 20px}
+.cmphead{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.cmphead h2{margin:0 auto 0 0;font-size:20px;color:var(--ink)}
+.cmphead label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.cmphead button{min-height:40px;padding:0 14px;border-radius:8px;border:2px solid var(--green);background:none;color:var(--green);font-weight:600;cursor:pointer}
+.cg{display:grid;grid-template-columns:130px 1fr 1fr;font-size:14px}
+.cg>div{padding:8px 10px;border-bottom:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.cg .l{color:var(--mute)}
+.cg .h{border-bottom:2px solid var(--green);padding-bottom:12px}
+.cg .h .code{font-size:30px;color:var(--ink);margin:0}
+.cg .h small{display:block;color:var(--mute)}
+.cg .h button{background:none;border:0;color:var(--rust);cursor:pointer;text-decoration:underline;padding:0;margin-top:4px}
+.cg .h form{display:flex;gap:6px}
+.cg .h input{flex:1;min-width:0;min-height:42px;border:2px solid var(--line);border-radius:8px;padding:0 10px;background:var(--paper);text-transform:uppercase}
+.cg .h form button{margin:0;text-decoration:none;background:var(--green);color:#fff;border-radius:8px;padding:0 12px;min-height:42px}
+.cg .d{background:color-mix(in srgb,var(--yellow) 35%,transparent);font-weight:700}
+.cmpsum{margin:10px 0 0;color:var(--mute)}
+@media(max-width:900px){.cg{grid-template-columns:84px 1fr 1fr;font-size:13px}.cg .h .code{font-size:22px}.cg .h form{flex-direction:column}}
+@media print{#cmp{display:none}}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
-
-  <!-- Header -->
-  <header class="bg-emerald-900 border-b border-emerald-800 text-white sticky top-0 z-40 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-emerald-700/80 border border-emerald-500/40 flex items-center justify-center text-amber-400 text-xl font-bold">
-          <i class="ph-bold ph-tractor"></i>
-        </div>
-        <div>
-          <h1 class="font-bold text-lg sm:text-xl tracking-tight leading-none text-white">SpecMaster™ <span class="text-emerald-300 font-normal text-sm sm:text-base">| Step-by-Step Model Selector</span></h1>
-          <p class="text-xs text-emerald-200 hidden sm:block mt-0.5"></p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2 sm:gap-3">
-        <button id="resetAllBtn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-yellow-400/40 hover:bg-emerald-700 text-emerald-100 border border-emerald-600/50 flex items-center gap-1.5 transition">
-          <i class="ph ph-arrow-counter-clockwise text-sm"></i>
-          <span>Do again</span>
-        </button>
-      </div>
+<body>
+<header><div class="bar">
+  <h1>Tractor variant finder<small>Pick a model and options to get the variant code</small></h1>
+  <form class="find" id="findForm"><input id="findInput" placeholder="Look up a variant code" aria-label="Variant code" autocomplete="off"><button>Find</button></form>
+  <button class="ghost" id="resetAllBtn">Start over</button>
+</div></header>
+<section id="cmp" hidden></section>
+<main>
+  <section id="left">
+    <h2>Model</h2>
+    <div id="modelRadioContainer"></div>
+    <div id="stepsContainer"></div>
+  </section>
+  <aside id="result" data-state="idle">
+    <div class="codebar" aria-live="polite">
+      <div class="st" id="cardStatusBadge"></div>
+      <div class="code" id="displayVariantCode">--</div>
+      <div class="sub" id="resolvedVariantSubtitle"></div>
     </div>
-  </header>
-
-  <!-- Notification Banner / Active Status -->
-  <div class="bg-emerald-950 text-emerald-200 text-xs px-4 py-2 border-b border-emerald-900/60">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-      <div class="flex items-center gap-2">
-        <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span id="statusBarText" class="font-medium text-emerald-100">Select your Model to begin.</span>
-      </div>
-      <div class="flex items-center gap-4 text-slate-300">
-        <span id="guidanceStepPrompt" class="text-amber-300 font-semibold flex items-center gap-1.5">
-          <i class="ph-bold ph-arrow-circle-right"></i>
-          <span>Action Required: Choose a tractor model</span>
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Content Layout -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-    <!-- Left Column: Selection Section (7 cols) -->
-    <div class="lg:col-span-7 flex flex-col gap-5">
-      <div class="flex items-center justify-between pb-1 border-b border-slate-200">
-        <div>
-          <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700">Start Building your Tractor !</h2>
-          <p class="text-xs text-slate-500"></p>
-        </div>
-      </div>
-
-      <!-- Step 0: Model Selection Card -->
-      <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 sm:p-6 relative">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2.5">
-            <span class="w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-bold flex items-center justify-center">1</span>
-            <div>
-              <h3 class="font-bold text-slate-900 text-sm sm:text-base">Select Base Model</h3>
-              <p class="text-xs text-slate-500">Grouped by Series (3E, 5D, 5E) and HP</p>
-            </div>
-          </div>
-          <span class="text-[11px] font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">Required</span>
-        </div>
-
-        <div id="modelRadioContainer" class="space-y-4 mt-3">
-          <!-- Dynamically populated model groups -->
-        </div>
-      </div>
-
-      <!-- Container for Sequential Stepped Radio Cards -->
-      <div id="stepsContainer" class="space-y-4">
-        <!-- Subsequent steps dynamically render here one after one -->
-      </div>
-
-    </div>
-
-    <!-- Right Column: Selected Section (5 cols) -->
-    <div class="lg:col-span-5 flex flex-col gap-4">
-      <div class="flex items-center justify-between pb-1 border-b border-slate-200">
-        <div>
-          <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700">Finalised Features</h2>
-          <p class="text-xs text-slate-500">Selected Features & final variant code</p>
-        </div>
-      </div>
-
-      <!-- Unified Selected Result & Configuration Card -->
-      <div id="resultContainer" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden sticky top-20 flex flex-col">
-        
-        <!-- Clean Variant Hero Header -->
-        <div id="resultCardHeader" class="bg-slate-900 text-white p-5 transition-colors">
-          <div class="flex items-center justify-between text-xs opacity-75 mb-1 font-semibold uppercase tracking-wider">
-            <span id="cardStatusBadge">Variant Resolution</span>
-            <span id="variantConfidence" class="font-mono bg-white/10 px-2 py-0.5 rounded">Pending Model</span>
-          </div>
-          <div id="displayVariantCode" class="text-2xl sm:text-3xl font-mono font-black tracking-wider text-amber-300">
-            --
-          </div>
-          <p id="resolvedVariantSubtitle" class="text-xs text-slate-300 mt-1">Select a tractor above to display variant code</p>
-        </div>
-
-        <!-- Selections Breakdown -->
-        <div class="p-5 flex-1 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between text-xs font-bold text-slate-700 uppercase tracking-wider mb-2.5">
-              <span>Selected Features</span>
-              <span id="activeSpecCount" class="text-[11px] text-slate-400 font-normal">0 items</span>
-            </div>
-            
-            <div id="summarySpecList" class="space-y-1.5 max-h-[380px] overflow-y-auto custom-scrollbar pr-1 text-xs">
-              <!-- Dynamically populated resolved spec pills -->
-              <div class="text-slate-400 text-xs italic py-4 text-center">No selections made yet.</div>
-            </div>
-          </div>
-
-          <!-- Direct action buttons -->
-          <div class="mt-5 pt-4 border-t border-slate-100 flex gap-2">
-            <button id="copySummaryBtn" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold flex items-center justify-center gap-1.5 shadow transition">
-              <i class="ph ph-copy text-sm"></i>
-              <span>Copy Spec Summary</span>
-            </button>
-            <button id="printSpecBtn" class="py-2.5 px-3.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
-              <i class="ph ph-printer text-sm"></i>
-              <span class="hidden sm:inline">Print Spec</span>
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- Toast Notification element -->
-  <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg border border-slate-700 transform translate-y-16 opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center gap-2">
-    <i class="ph-bold ph-check-circle text-emerald-400 text-base"></i>
-    <span id="toastMessage">Selection completed</span>
-  </div>
-
-  <footer class="bg-white border-t border-slate-200 mt-auto py-4 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p>© Tractor Model Selector Tool — Automated Variant Matching System - <span id="footerSessionBadge" class="font-mono text-slate-400 select-all">SYS-IDLE</span></p>
-    </div>
-  </footer>
-
-  <!-- Application Logic & Master Dataset -->
-  <script>
+    <div class="specs" id="summarySpecList"></div>
+    <div class="act"><button id="copySummaryBtn">Copy spec</button><button id="cmpAddBtn" style="flex:1">Add to compare</button><button id="printSpecBtn">Print</button></div>
+  </aside>
+</main>
+<div id="toast" role="status"></div>
+<script>
     /**
      * Master tractor specifications updated from tableconvert_tyrecorrected.json
      */
@@ -6375,468 +6323,128 @@
     FLOW_STEPS.forEach(s => selections[s.key] = "");
     let autoSelectedMap = {};
 
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      const toastMsg = document.getElementById("toastMessage");
-      toastMsg.textContent = message;
-      toast.classList.remove("translate-y-16", "opacity-0");
-      toast.classList.add("translate-y-0", "opacity-100");
-      setTimeout(() => {
-        toast.classList.add("translate-y-16", "opacity-0");
-        toast.classList.remove("translate-y-0", "opacity-100");
-      }, 3000);
-    }
+const $=id=>document.getElementById(id);
+function showToast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(showToast.h);showToast.h=setTimeout(()=>t.classList.remove("on"),2500)}
+function getMatches(f){return catalog.filter(i=>Object.entries(f).every(([k,v])=>!v||String(i[k]).trim().toLowerCase()===String(v).trim().toLowerCase()))}
+function getAvailableOptions(key,cur){const t={...cur};delete t[key];const s=new Set();getMatches(t).forEach(m=>{if(m[key]!=null&&String(m[key]).trim()!=="")s.add(String(m[key]).trim())});return[...s].sort()}
+const PLATFORM_GROUPS=[
+ {name:"3E",note:"Compact, orchard",order:["3028EN","3036EN","3036E"]},
+ {name:"5D",note:"Utility, puddling",order:["5036D","5039D","5042D","5045D","5050D","5105D"]},
+ {name:"5E",note:"Heavy duty, commercial",order:["5210E","5310E","5405E","5075E"]}];
+function chip(label,on,cls,fn){const b=document.createElement("button");b.type="button";b.className="chip "+(cls||"");b.setAttribute("aria-pressed",on);b.textContent=label;b.onclick=fn;return b}
+function clearFrom(i){for(let j=i;j<FLOW_STEPS.length;j++){selections[FLOW_STEPS[j].key]="";autoSelectedMap[FLOW_STEPS[j].key]=false}}
+function renderModelSelector(){
+ const c=$("modelRadioContainer");c.innerHTML="";
+ const have=new Set(catalog.map(x=>x.model.trim().toUpperCase()));
+ PLATFORM_GROUPS.forEach(g=>{
+  const ms=g.order.filter(m=>have.has(m));if(!ms.length)return;
+  const r=document.createElement("div");r.className="series";
+  r.innerHTML=`<b>${g.name} series<span>${g.note}</span></b>`;
+  const ch=document.createElement("div");ch.className="chips";
+  ms.forEach(m=>ch.appendChild(chip(m,selections.model.toUpperCase()===m,"model",()=>{
+   if(selections.model.toUpperCase()===m)return;
+   selections.model=m;clearFrom(0);autoSelectedMap={};renderModelSelector();runSteppedFlow()})));
+  r.appendChild(ch);c.appendChild(r)})}
+function runSteppedFlow(){
+ const w=$("stepsContainer");w.innerHTML="";
+ if(selections.model){
+  const f={model:selections.model};
+  for(let i=0;i<FLOW_STEPS.length;i++){
+   const st=FLOW_STEPS[i],opts=getAvailableOptions(st.key,f);
+   if(!opts.length)break;
+   if(opts.length===1){selections[st.key]=opts[0];autoSelectedMap[st.key]=true;f[st.key]=opts[0];continue}
+   autoSelectedMap[st.key]=false;
+   if(selections[st.key]){
+    const d=document.createElement("div");d.className="done";
+    d.innerHTML=`<span>${st.label}</span><b>${selections[st.key]}</b><button type="button">Change</button>`;
+    d.querySelector("button").onclick=()=>{clearFrom(i);runSteppedFlow()};
+    w.appendChild(d);f[st.key]=selections[st.key];continue}
+   const n=document.createElement("div");n.className="now";
+   n.innerHTML=`<h3>${st.label}<small>${opts.length} options</small></h3>`;
+   const ch=document.createElement("div");ch.className="chips";
+   opts.forEach(o=>ch.appendChild(chip(o,false,"",()=>{selections[st.key]=o;clearFrom(i+1);runSteppedFlow()})));
+   n.appendChild(ch);w.appendChild(n);break}}
+ updateTargetDisplay()}
+function resolve(){
+ const f={};if(selections.model)f.model=selections.model;
+ FLOW_STEPS.forEach(s=>{if(selections[s.key])f[s.key]=selections[s.key]});
+ const m=getMatches(f),all=FLOW_STEPS.every(s=>selections[s.key]);
+ let state="progress",pick=null;
+ if(!selections.model)state="idle";
+ else if(!m.length)state="none";
+ else if(m.length===1||all){state="done";pick=m.find(x=>x.variant.toUpperCase().includes("PY"))||m[0]}
+ return{f,m,state,pick}}
+function updateTargetDisplay(){
+ const{f,m,state,pick}=resolve();
+ $("result").dataset.state=state;
+ const L=$("summarySpecList");L.innerHTML="";
+ const row=(a,b,auto)=>{const d=document.createElement("div");d.className="row";d.innerHTML=`<span>${a}</span><b>${b}${auto?"<i>auto</i>":""}</b>`;L.appendChild(d)};
+ if(state==="idle")L.innerHTML='<div class="empty">Choose a model to begin, or look up a variant code above.</div>';
+ else{row("Model",selections.model);FLOW_STEPS.forEach(s=>{if(selections[s.key])row(s.label,selections[s.key],autoSelectedMap[s.key])})}
+ const code=$("displayVariantCode"),st=$("cardStatusBadge"),sub=$("resolvedVariantSubtitle");
+ if(state==="idle"){st.textContent="Variant code";code.textContent="--";sub.textContent="Nothing selected yet"}
+ else if(state==="none"){st.textContent="No match";code.textContent="N/A";sub.textContent="No variant has this combination. Change a choice or start over."}
+ else if(state==="done"){
+  const alt=m.find(x=>/VY|DY/i.test(x.variant)&&x!==pick);
+  st.textContent=/PY/i.test(pick.variant)?"Final variant · Pune plant":"Final variant";
+  code.textContent=pick.variant;
+  sub.textContent=[pick.desiText||pick.model,alt?"Dewas alternate: "+alt.variant:""].filter(Boolean).join(" · ")}
+ else{st.textContent="Narrowing down";code.textContent=m.length+" variants left";sub.textContent=Object.keys(f).length-1+" options chosen so far"}
+ $("footerRef").textContent=state==="done"?pick.sessionId:""}
+function lookup(q){
+ q=q.trim().toUpperCase();if(!q)return;
+ const it=catalog.find(c=>c.variant.toUpperCase()===q)||catalog.find(c=>c.variant.toUpperCase().startsWith(q));
+ if(!it){showToast("No variant found for "+q);return}
+ selections.model=it.model;clearFrom(0);autoSelectedMap={};
+ FLOW_STEPS.forEach(s=>selections[s.key]=it[s.key]);
+ renderModelSelector();runSteppedFlow();showToast("Showing "+it.variant)}
+$("findForm").onsubmit=e=>{e.preventDefault();lookup($("findInput").value)};
+$("resetAllBtn").onclick=()=>{selections.model="";clearFrom(0);autoSelectedMap={};$("findInput").value="";renderModelSelector();runSteppedFlow();showToast("Cleared. Choose a model to begin.")};
+$("copySummaryBtn").onclick=()=>{
+ const{state,pick}=resolve();
+ const lines=["Variant: "+$("displayVariantCode").innerText,"Model: "+(selections.model||"N/A")];
+ FLOW_STEPS.forEach(s=>{if(selections[s.key])lines.push(s.label+": "+selections[s.key])});
+ if(state==="done")lines.push("Ref: "+pick.sessionId);
+ lines.push("Generated: "+new Date().toLocaleString());
+ const t=document.createElement("textarea");t.value=lines.join("\n");document.body.appendChild(t);t.select();
+ try{document.execCommand("copy");showToast("Spec copied")}catch(e){showToast("Couldn't copy")}
+ t.remove()};
+$("printSpecBtn").onclick=()=>window.print();
 
-    function getMatches(filterObj) {
-      return catalog.filter(item => {
-        for (const [k, v] of Object.entries(filterObj)) {
-          if (v && String(item[k]).trim().toLowerCase() !== String(v).trim().toLowerCase()) {
-            return false;
-          }
-        }
-        return true;
-      });
-    }
-
-    function getAvailableOptions(key, currentFilters) {
-      const tempFilters = { ...currentFilters };
-      delete tempFilters[key];
-
-      const matches = getMatches(tempFilters);
-      const set = new Set();
-      matches.forEach(m => {
-        if (m[key] !== undefined && m[key] !== null && String(m[key]).trim() !== "") {
-          set.add(String(m[key]).trim());
-        }
-      });
-      return Array.from(set).sort();
-    }
-
-    // Platform definitions with HP order and pale background color tokens
-    const PLATFORM_GROUPS = [
-      {
-        name: "3E Series (Compact / Orchard)",
-        platformKey: "3E",
-        theme: "bg-teal-50/70 border-teal-200 text-teal-900",
-        badge: "bg-teal-100 text-teal-800 border-teal-300",
-        order: ["3028EN", "3036EN", "3036E"]
-      },
-      {
-        name: "5D Series (Utility & Puddling)",
-        platformKey: "5D",
-        theme: "bg-sky-50/70 border-sky-200 text-sky-900",
-        badge: "bg-sky-100 text-sky-800 border-sky-300",
-        order: ["5036D", "5039D", "5042D", "5045D", "5050D", "5105D"]
-      },
-      {
-        name: "5E Series (Heavy Duty & Commercial)",
-        platformKey: "5E",
-        theme: "bg-indigo-50/70 border-indigo-200 text-indigo-900",
-        badge: "bg-indigo-100 text-indigo-800 border-indigo-300",
-        order: ["5210E", "5310E", "5405E", "5075E"]
-      }
-    ];
-
-    function renderModelSelector() {
-      const container = document.getElementById("modelRadioContainer");
-      container.innerHTML = "";
-
-      const allAvailableModels = new Set(catalog.map(c => c.model.trim().toUpperCase()).filter(Boolean));
-
-      PLATFORM_GROUPS.forEach(group => {
-        // Collect models present in this platform matching case-insensitively
-        const groupModels = group.order.filter(m => allAvailableModels.has(m.toUpperCase()));
-        if (groupModels.length === 0) return;
-
-        const groupWrapper = document.createElement("div");
-        groupWrapper.className = `p-3 rounded-xl border ${group.theme} transition`;
-
-        // Responsive grid fitting 3 or 4 cards cleanly
-        const gridColClass = groupModels.length === 3 ? "grid-cols-3" : "grid-cols-2 sm:grid-cols-4";
-
-        groupWrapper.innerHTML = `
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[11px] font-bold tracking-tight uppercase">${group.name}</span>
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border ${group.badge}">${group.platformKey} Series</span>
-          </div>
-          <div class="grid ${gridColClass} gap-2" id="group-${group.platformKey}"></div>
-        `;
-
-        const grid = groupWrapper.querySelector(`#group-${group.platformKey}`);
-
-        groupModels.forEach(mod => {
-          const isSelected = selections.model.toUpperCase() === mod.toUpperCase();
-          const displayLabel = mod;
-          const btn = document.createElement("button");
-          btn.type = "button";
-          // Compact padding & height so tabs fit comfortably in one line
-          btn.className = `py-2 px-2.5 rounded-lg border text-left transition flex items-center justify-between group ${
-            isSelected 
-              ? "border-emerald-600 bg-emerald-600 text-white shadow-sm font-bold ring-2 ring-emerald-400" 
-              : "border-white/80 hover:border-slate-300 bg-white/95 text-slate-800 hover:bg-white shadow-xs"
-          }`;
-
-          btn.innerHTML = `
-            <div class="min-w-0 pr-1">
-              <div class="text-[9px] uppercase tracking-wider ${isSelected ? 'text-emerald-100' : 'text-slate-400'} font-semibold truncate leading-tight">Model</div>
-              <div class="text-xs sm:text-sm font-extrabold ${isSelected ? 'text-white' : 'text-slate-900'} truncate leading-tight mt-0.5">${displayLabel}</div>
-            </div>
-            <div class="w-3.5 h-3.5 rounded-full border flex-shrink-0 flex items-center justify-center ${isSelected ? "border-white bg-white text-emerald-700" : "border-slate-300 bg-slate-50"}">
-              ${isSelected ? '<i class="ph-bold ph-check text-[9px]"></i>' : ''}
-            </div>
-          `;
-
-          btn.addEventListener("click", () => {
-            if (selections.model.toUpperCase() !== mod.toUpperCase()) {
-              selections.model = mod;
-              FLOW_STEPS.forEach(s => selections[s.key] = "");
-              autoSelectedMap = {};
-              renderModelSelector();
-              runSteppedFlow();
-            }
-          });
-
-          grid.appendChild(btn);
-        });
-
-        container.appendChild(groupWrapper);
-      });
-    }
-
-    function runSteppedFlow() {
-      const stepsWrapper = document.getElementById("stepsContainer");
-      stepsWrapper.innerHTML = "";
-
-      if (!selections.model) {
-        const guidanceStepPrompt = document.getElementById("guidanceStepPrompt");
-        if (guidanceStepPrompt) {
-          guidanceStepPrompt.innerHTML = `
-            <i class="ph-bold ph-arrow-circle-right"></i>
-            <span>Action Required: Choose a tractor model</span>
-          `;
-        }
-        updateTargetDisplay();
-        return;
-      }
-
-      let currentActiveFilters = { model: selections.model };
-      let visibleStepIndex = 1;
-      let nextActionLabel = "";
-
-      for (let i = 0; i < FLOW_STEPS.length; i++) {
-        const step = FLOW_STEPS[i];
-        const stepKey = step.key;
-        const stepLabel = step.label;
-
-        const options = getAvailableOptions(stepKey, currentActiveFilters);
-
-        if (options.length === 0) {
-          break;
-        }
-
-        // When only 1 option is available: Auto-lock and HIDE completely from selection area
-        if (options.length === 1) {
-          const singleValue = options[0];
-          selections[stepKey] = singleValue;
-          autoSelectedMap[stepKey] = true;
-          currentActiveFilters[stepKey] = singleValue;
-          continue;
-        }
-
-        // More than 1 option: Show interactive radio card to the user
-        visibleStepIndex++;
-        autoSelectedMap[stepKey] = false;
-        const isCurrentActiveStep = !selections[stepKey];
-
-        if (isCurrentActiveStep && !nextActionLabel) {
-          nextActionLabel = stepLabel;
-        }
-
-        const stepCard = document.createElement("div");
-        stepCard.className = `bg-white rounded-2xl border shadow-sm p-4 sm:p-5 transition ${
-          isCurrentActiveStep ? "border-emerald-500 ring-2 ring-emerald-500/20" : "border-slate-200"
-        }`;
-
-        stepCard.innerHTML = `
-          <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
-            <div class="flex items-center gap-2.5">
-              <span class="w-6 h-6 rounded-full ${isCurrentActiveStep ? "bg-emerald-600 text-white" : "bg-emerald-100 text-emerald-800"} text-xs font-bold flex items-center justify-center">${visibleStepIndex}</span>
-              <div>
-                <h3 class="font-bold text-slate-900 text-sm sm:text-base">${stepLabel}</h3>
-                <p class="text-xs text-slate-500">${options.length} options available</p>
-              </div>
-            </div>
-            ${selections[stepKey] ? `
-              <button class="change-step-btn text-xs text-emerald-700 hover:text-emerald-900 font-semibold underline" data-step-key="${stepKey}">
-                Change
-              </button>
-            ` : `
-              <span class="text-[11px] px-2 py-0.5 rounded bg-amber-50 text-amber-800 font-semibold border border-amber-200">Select One</span>
-            `}
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="radios-${stepKey}"></div>
-        `;
-
-        const radiosContainer = stepCard.querySelector(`#radios-${stepKey}`);
-
-        options.forEach(optVal => {
-          const isSelected = selections[stepKey] === optVal;
-          const radioBtn = document.createElement("button");
-          radioBtn.type = "button";
-          radioBtn.className = `p-3 rounded-xl border text-left transition flex items-center justify-between group ${
-            isSelected 
-              ? "border-emerald-600 bg-emerald-50 text-emerald-950 font-bold ring-1 ring-emerald-500" 
-              : "border-slate-200 hover:border-slate-300 bg-white text-slate-700"
-          }`;
-
-          radioBtn.innerHTML = `
-            <div class="flex items-center gap-2.5">
-              <div class="w-4 h-4 rounded-full border flex items-center justify-center ${isSelected ? "border-emerald-600 bg-emerald-600 text-white" : "border-slate-300 bg-slate-50"}">
-                ${isSelected ? '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>' : ''}
-              </div>
-              <span class="text-xs sm:text-sm font-medium">${optVal}</span>
-            </div>
-            ${isSelected ? '<i class="ph-bold ph-check text-emerald-600 text-sm"></i>' : ''}
-          `;
-
-          radioBtn.addEventListener("click", () => {
-            selections[stepKey] = optVal;
-
-            for (let j = i + 1; j < FLOW_STEPS.length; j++) {
-              selections[FLOW_STEPS[j].key] = "";
-              autoSelectedMap[FLOW_STEPS[j].key] = false;
-            }
-
-            runSteppedFlow();
-          });
-
-          radiosContainer.appendChild(radioBtn);
-        });
-
-        stepsWrapper.appendChild(stepCard);
-
-        const changeBtn = stepCard.querySelector(".change-step-btn");
-        if (changeBtn) {
-          changeBtn.addEventListener("click", () => {
-            selections[stepKey] = "";
-            for (let j = i + 1; j < FLOW_STEPS.length; j++) {
-              selections[FLOW_STEPS[j].key] = "";
-            }
-            runSteppedFlow();
-          });
-        }
-
-        if (!selections[stepKey]) {
-          break;
-        } else {
-          currentActiveFilters[stepKey] = selections[stepKey];
-        }
-      }
-
-      // Update Guidance Prompt
-      const guidance = document.getElementById("guidanceStepPrompt");
-      if (nextActionLabel) {
-        guidance.innerHTML = `
-          <i class="ph-bold ph-arrow-circle-right text-emerald-300"></i>
-          <span>Next: Select <strong class="text-white">${nextActionLabel}</strong></span>
-        `;
-        document.getElementById("statusBarText").textContent = `Please select ${nextActionLabel} to continue narrowing down.`;
-      } else {
-        guidance.innerHTML = `
-          <i class="ph-bold ph-check-circle text-emerald-400"></i>
-          <span>All required options completed!</span>
-        `;
-      }
-
-      updateTargetDisplay();
-    }
-
-    function updateTargetDisplay() {
-      const activeObj = {};
-      if (selections.model) activeObj.model = selections.model;
-      FLOW_STEPS.forEach(s => {
-        if (selections[s.key]) activeObj[s.key] = selections[s.key];
-      });
-
-      const matches = getMatches(activeObj);
-      const totalDecided = Object.keys(activeObj).length;
-
-      const activeSpecCount = document.getElementById("activeSpecCount");
-      if (activeSpecCount) activeSpecCount.textContent = `${totalDecided} decided`;
-
-      const header = document.getElementById("resultCardHeader");
-      const badge = document.getElementById("cardStatusBadge");
-      const sub = document.getElementById("resolvedVariantSubtitle");
-      const codeBox = document.getElementById("displayVariantCode");
-      const confBadge = document.getElementById("variantConfidence");
-      const footerSession = document.getElementById("footerSessionBadge");
-
-      const summaryList = document.getElementById("summarySpecList");
-      summaryList.innerHTML = "";
-
-      if (totalDecided === 0) {
-        summaryList.innerHTML = `<div class="text-slate-400 text-xs italic py-4 text-center">Select a model on the left to start configuration.</div>`;
-      } else {
-        appendSummaryItem("Model", selections.model, false);
-        FLOW_STEPS.forEach(step => {
-          if (selections[step.key]) {
-            appendSummaryItem(step.label, selections[step.key], autoSelectedMap[step.key]);
-          }
-        });
-      }
-
-      if (!selections.model) {
-        header.className = "bg-slate-900 text-white p-5 transition-colors";
-        badge.textContent = "Awaiting Model";
-        confBadge.textContent = "Step 0";
-        codeBox.textContent = "--";
-        codeBox.className = "text-2xl sm:text-3xl font-mono font-black tracking-wider text-slate-500";
-        sub.textContent = "Select a tractor above to display variant code.";
-        document.getElementById("statusBarText").textContent = "Select your Model to begin.";
-        if (footerSession) footerSession.textContent = "SYS-IDLE";
-      } 
-      else if (matches.length === 1) {
-        const finalVariant = matches[0];
-        header.className = "bg-emerald-900 text-white p-5 transition-colors";
-        badge.textContent = "Variant Finalized";
-        confBadge.textContent = "Complete";
-        codeBox.textContent = finalVariant.variant;
-        codeBox.className = "text-2xl sm:text-3xl font-mono font-black tracking-wider text-amber-300 select-all";
-        sub.textContent = finalVariant.desiText ? `${finalVariant.desiText} (${finalVariant.model})` : finalVariant.model;
-        document.getElementById("statusBarText").textContent = `Configuration locked: ${finalVariant.variant}`;
-        if (footerSession) footerSession.textContent = finalVariant.sessionId || "SYS-OK";
-      } 
-      else if (matches.length > 1) {
-        // Check if user has answered all branching steps (or all steps are filled)
-        const allStepsResolved = FLOW_STEPS.every(step => Boolean(selections[step.key]));
-
-        if (allStepsResolved) {
-          // Check for Pune plant (PY) vs Dewas plant (VY/DY) resolution preference
-          const puneVariant = matches.find(m => m.variant.toUpperCase().includes("PY"));
-          const dewasVariant = matches.find(m => m.variant.toUpperCase().includes("VY") || m.variant.toUpperCase().includes("DY"));
-
-          if (puneVariant) {
-            header.className = "bg-emerald-900 text-white p-5 transition-colors";
-            badge.textContent = "Variant Finalized (Pune Plant)";
-            confBadge.textContent = "Pune (PY)";
-            codeBox.textContent = puneVariant.variant;
-            codeBox.className = "text-2xl sm:text-3xl font-mono font-black tracking-wider text-amber-300 select-all";
-            
-            const dewasNote = dewasVariant ? ` • Dewas Alternate: ${dewasVariant.variant}` : '';
-            sub.textContent = `${puneVariant.desiText || puneVariant.model}${dewasNote}`;
-            document.getElementById("statusBarText").textContent = `Configuration locked: ${puneVariant.variant} (Pune Factory)`;
-            if (footerSession) footerSession.textContent = puneVariant.sessionId || "SYS-OK";
-          } else {
-            const firstMatch = matches[0];
-            header.className = "bg-emerald-900 text-white p-5 transition-colors";
-            badge.textContent = "Variant Finalized";
-            confBadge.textContent = "Complete";
-            codeBox.textContent = firstMatch.variant;
-            codeBox.className = "text-2xl sm:text-3xl font-mono font-black tracking-wider text-amber-300 select-all";
-            sub.textContent = firstMatch.desiText || firstMatch.model;
-            document.getElementById("statusBarText").textContent = `Configuration locked: ${firstMatch.variant}`;
-            if (footerSession) footerSession.textContent = firstMatch.sessionId || "SYS-OK";
-          }
-        } else {
-          header.className = "bg-slate-800 text-white p-5 transition-colors";
-          badge.textContent = "Selecting Options";
-          confBadge.textContent = `${matches.length} candidates left`;
-          codeBox.textContent = "In Progress";
-          codeBox.className = "text-xl sm:text-2xl font-mono font-bold tracking-wider text-emerald-300";
-          sub.textContent = `Choose your preferences on the left to finalize variant`;
-          document.getElementById("statusBarText").textContent = "Choose your preferences on the left.";
-          if (footerSession) footerSession.textContent = matches[0].sessionId ? `SEC-${matches[0].sessionId}` : "SYS-PENDING";
-        }
-      } 
-      else {
-        header.className = "bg-rose-950 text-white p-5 transition-colors";
-        badge.textContent = "No Variant Found";
-        confBadge.textContent = "0 matches";
-        codeBox.textContent = "N/A";
-        codeBox.className = "text-2xl font-mono font-bold tracking-wider text-rose-300";
-        sub.textContent = "No combination matches current selections. Reset or modify choices.";
-        if (footerSession) footerSession.textContent = "SYS-ERR";
-      }
-    }
-
-    function appendSummaryItem(label, value, isAuto) {
-      const summaryList = document.getElementById("summarySpecList");
-      const row = document.createElement("div");
-      row.className = "flex items-center justify-between p-2 rounded-lg bg-slate-50 border border-slate-100 text-xs";
-      row.innerHTML = `
-        <span class="text-slate-500 text-[11px] font-medium">${label}</span>
-        <div class="flex items-center gap-1.5">
-          <span class="font-bold text-slate-900">${value}</span>
-          ${isAuto ? '<span class="text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-1 py-0.2 rounded font-mono">auto</span>' : ''}
-        </div>
-      `;
-      summaryList.appendChild(row);
-    }
-
-    // Reset All button
-    document.getElementById("resetAllBtn").addEventListener("click", () => {
-      selections.model = "";
-      FLOW_STEPS.forEach(s => selections[s.key] = "");
-      autoSelectedMap = {};
-      renderModelSelector();
-      runSteppedFlow();
-      showToast("Flow restarted. Choose a model to begin.");
-    });
-
-    // Copy Summary text
-    document.getElementById("copySummaryBtn").addEventListener("click", () => {
-      // Find the active resolved session ID
-      const activeObj = {};
-      if (selections.model) activeObj.model = selections.model;
-      FLOW_STEPS.forEach(s => {
-        if (selections[s.key]) activeObj[s.key] = selections[s.key];
-      });
-      const matches = getMatches(activeObj);
-      let sessionCode = "SYS-IDLE";
-      if (matches.length > 0) {
-        // prioritize Pune variant session ID if multiple match
-        const pune = matches.find(m => m.variant.toUpperCase().includes("PY"));
-        sessionCode = pune ? pune.sessionId : matches[0].sessionId;
-      }
-
-      let lines = [
-        "=== EQUIPMENT SPECIFICATION REPORT ===",
-        `Target Variant Code: ${document.getElementById("displayVariantCode").innerText}`,
-        `Model: ${selections.model || "N/A"}`
-      ];
-      FLOW_STEPS.forEach(s => {
-        if (selections[s.key]) {
-          lines.push(`${s.label}: ${selections[s.key]} ${autoSelectedMap[s.key] ? "(Auto-selected)" : ""}`);
-        }
-      });
-      lines.push(
-  `System Trace Reference: #${sessionCode} | Generated: ${new Date().toLocaleString()}`
-);
-      lines.push("==========================");
-
-      const tempTextArea = document.createElement("textarea");
-      tempTextArea.value = lines.join("\n");
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      try {
-        document.execCommand("copy");
-        showToast("Spec sheet copied to clipboard!");
-      } catch (err) {
-        showToast("Unable to copy to clipboard.");
-      }
-      document.body.removeChild(tempTextArea);
-    });
-
-    // Print button
-    document.getElementById("printSpecBtn").addEventListener("click", () => {
-      window.print();
-    });
-
-    // Boot on load
-    window.onload = function() {
-      renderModelSelector();
-      runSteppedFlow();
-    };
-  </script>
+let cmp=[null,null],onlyDiff=false;
+const CMP_ROWS=[["model","Model"],["platform","Series"],...FLOW_STEPS.map(s=>[s.key,s.label])];
+function findVariant(q){q=q.trim().toUpperCase();return q&&(catalog.find(c=>c.variant.toUpperCase()===q)||catalog.find(c=>c.variant.toUpperCase().startsWith(q)))}
+function addCmp(it,slot){
+ if(cmp.some(x=>x&&x.variant===it.variant)){showToast(it.variant+" is already in the comparison");return}
+ let i=slot!=null?slot:cmp.findIndex(x=>!x);
+ if(i<0){cmp[0]=cmp[1];i=1}
+ cmp[i]=it;renderCmp();$("cmp").scrollIntoView({block:"start"})}
+const same=(a,b)=>String(a).trim().toLowerCase()===String(b).trim().toLowerCase();
+function renderCmp(){
+ const P=$("cmp");P.hidden=!(cmp[0]||cmp[1]);if(P.hidden)return;
+ const both=cmp[0]&&cmp[1];
+ const rows=CMP_ROWS.map(([k,l])=>({k,l,d:both&&!same(cmp[0][k],cmp[1][k])}));
+ const nd=rows.filter(r=>r.d).length;
+ const head=i=>cmp[i]?`<div class="h"><div class="code">${cmp[i].variant}</div><small>${cmp[i].desiText||cmp[i].model}</small><button data-rm="${i}">Remove</button></div>`
+  :`<div class="h"><form data-slot="${i}"><input placeholder="Variant code" aria-label="Variant code for slot ${i+1}"><button>Add</button></form><small>Or build one above and press Add to compare</small></div>`;
+ let h=`<div class="cmpbox"><div class="cmphead"><h2>Compare variants</h2>${both?`<label><input type="checkbox" id="onlyDiff" ${onlyDiff?"checked":""}> Show differences only</label><button id="cmpCopy">Copy comparison</button>`:""}<button id="cmpClose">Close</button></div><div class="cg"><div class="h"></div>${head(0)}${head(1)}`;
+ rows.forEach(r=>{if(onlyDiff&&both&&!r.d)return;
+  const c=i=>`<div class="${r.d?"d":""}">${cmp[i]?cmp[i][r.k]||"-":""}</div>`;
+  h+=`<div class="l">${r.l}</div>${c(0)}${c(1)}`});
+ h+=`</div>`;
+ if(both)h+=`<p class="cmpsum">${nd?nd+" of "+rows.length+" specs differ.":"All specs are identical. These variants differ only by code or plant."}</p>`;
+ P.innerHTML=h+"</div>";
+ P.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{cmp[+b.dataset.rm]=null;renderCmp()});
+ P.querySelectorAll("form[data-slot]").forEach(f=>f.onsubmit=e=>{e.preventDefault();const it=findVariant(f.querySelector("input").value);it?addCmp(it,+f.dataset.slot):showToast("No variant found")});
+ $("cmpClose").onclick=()=>{cmp=[null,null];renderCmp()};
+ const od=$("onlyDiff");if(od)od.onchange=()=>{onlyDiff=od.checked;renderCmp()};
+ const cc=$("cmpCopy");if(cc)cc.onclick=()=>{
+  const t=document.createElement("textarea");
+  t.value=["Compare: "+cmp[0].variant+" vs "+cmp[1].variant,...rows.map(r=>(r.d?"* ":"  ")+r.l+": "+cmp[0][r.k]+" | "+cmp[1][r.k])].join("\n");
+  document.body.appendChild(t);t.select();try{document.execCommand("copy");showToast("Comparison copied")}catch(e){showToast("Couldn't copy")}t.remove()}}
+$("cmpAddBtn").onclick=()=>{const{state,pick}=resolve();state==="done"?addCmp(pick):showToast("Finish choosing a variant first, then add it")};
+window.onload=()=>{renderModelSelector();runSteppedFlow()};
+</script>
+<span id="footerRef" hidden></span>
 </body>
 </html>
